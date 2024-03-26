@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
+const mongoose = require('mongoose');
 
 /**
  * -------------- GENERAL SETUP ----------------
@@ -10,11 +11,17 @@ const passport = require('passport');
 // Gives us access to variables set in the .env file via `process.env.VARIABLE_NAME` syntax
 require('dotenv').config();
 
+// Access the DB_STRING variable
+const mongoDb = process.env.DB_STRING;
+
+// Now you can use mongoDb in your mongoose.connect() function
+mongoose.connect(mongoDb, { useNewUrlParser: true, useUnifiedTopology: true });
+
 // Create the Express application
 var app = express();
 
 // Configures the database and opens a global connection that can be used in any module with `mongoose.connection`
-require('./config/database');
+// require('./config/database');
 
 // Must first load the models
 require('./models/user');
@@ -49,5 +56,4 @@ app.use(require('./routes'));
  * -------------- SERVER ----------------
  */
 
-// Server listens on http://localhost:3000
-app.listen(3000);
+app.listen(5000);
