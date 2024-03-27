@@ -6,16 +6,27 @@ const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 exports.index = asyncHandler(async (req, res, next) => {
-    const allPosts = await Post.find({}, "title date_published content user")
+    const allPosts = await Post.find({}, "title date_published content comments user")
     .sort({ title: 1 })
     .populate("user")
+    .populate("comments")
     .exec();
 
     return res.json(allPosts);
 })
 
 exports.post_detail = asyncHandler(async (req, res, next) => {
-    return res.json("specific post detail")
+  const [post] = await Promise.all([
+    Post.findById(req.params.id).populate("user").populate("comments").exec(),
+  ]);
+
+  if (post === null) {
+    const err = new Error("post not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  return res.json(post)
 })
 
 exports.post_create_post = [

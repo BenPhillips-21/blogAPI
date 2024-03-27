@@ -7,7 +7,7 @@ const PostSchema = new Schema ({
     title: { type: String, required: true },
     date_published: { type: Date, required: true },
     content: { type: String, required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: "Comments" }],
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 })
 
 // Virtual for Post URL
