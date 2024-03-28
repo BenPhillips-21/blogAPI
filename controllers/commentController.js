@@ -37,3 +37,21 @@ exports.post_create_comment = [
     return res.json({ success: true, message: "comment saved!"})
   }),
 ];
+
+exports.comment_delete = asyncHandler(async (req, res, next) => {
+    const [comment] = await Promise.all([
+    Comment.findById(req.params.id).exec(),
+  ]);
+
+  if (comment === null) {
+    res.json("This comment does not exist");
+  }
+
+    await Comment.findByIdAndDelete(req.params.id);
+    res.json("Comment deleted :)");
+})
+
+    // const updateOperation = {
+    // $pull: { comments: req.params.id }
+    // };
+    // await Post.findOneAndUpdate({ _id: req.params.id }, updateOperation, { new: true })

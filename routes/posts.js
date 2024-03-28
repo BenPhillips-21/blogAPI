@@ -10,15 +10,15 @@ const post_controller = require("../controllers/postController")
 router.get('/', post_controller.index)
 
 // GET request for one post.
-router.get("/specificpost/:id", post_controller.post_detail);
+router.get("/:id", post_controller.post_detail);
 
 // POST request for creating post.
 router.post("/create", post_controller.post_create_post);
 
 // POST request to delete post.
-router.post("/:id/delete", post_controller.post_delete_post);
+router.post("/delete/:id", post_controller.post_delete_post);
 
  // POST request to update post.
-router.post("/:id/update", post_controller.post_update_post);
+router.post("/update/:id", post_controller.post_update_post);
 
 module.exports = router;

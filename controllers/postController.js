@@ -60,9 +60,34 @@ exports.post_create_post = [
 ];
 
 exports.post_delete_post = asyncHandler(async (req, res, next) => {
-    return res.json("My name jeff")
+    const [post] = await Promise.all([
+    Post.findById(req.params.id).exec(),
+  ]);
+
+  if (post === null) {
+    res.json("This post does not exist");
+  }
+
+    await Post.findByIdAndDelete(req.params.id);
+    res.json("Post deleted :)");
 })
 
-exports.post_update_post = asyncHandler(async (req, res, next) => {
-    return res.json("My name jeff")
-})
+exports.post_update_post = [
+  asyncHandler(async (req, res) => {
+    let updatedPost = {};
+    if (req.body.title && req.body.content) {
+      updatedPost = { 
+        title: req.body.title,
+        content: req.body.content,
+      };
+      await Post.findByIdAndUpdate(req.params.id, updatedPost, { new: true });
+    } else if (req.body.content !== undefined && req.body.title === undefined) {
+      const updateOperation = { content: req.body.content }; 
+      await Post.findByIdAndUpdate(req.params.id, updateOperation, { new: true }); 
+    } else if (req.body.content === undefined && req.body.title !== undefined) {
+      const updateOperation = { title: req.body.title }; 
+      await Post.findByIdAndUpdate(req.params.id, updateOperation, { new: true });
+    }
+    res.json("Post Update Successful");
+  })
+];
