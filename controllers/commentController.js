@@ -5,31 +5,26 @@ const User = require("../models/user");
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
-exports.index = asyncHandler(async (req, res) => {
-  return res.json("Bello")
-})
-
 exports.post_create_comment = [
     asyncHandler(async (req, res, next) => {
-
+    let date = Date.now()
     const comment = new Comment({
-      user: req.body.user,  
-      post: req.body.post,
-      date_published: req.body.date_published,
+      user: req.user._id, 
+      post: req.params.postid,
+      date_published: date,
       content: req.body.content,
     });
 
     await comment.save();
 
     Post.findByIdAndUpdate(
-    req.body.post,
+    req.params.postid,
     { $push: { comments: comment } }, // Use $push to add newValue to the array
     { new: true }
   )
   .then(updatedDocument => {
   if (updatedDocument) {
     console.log('Updated document:', updatedDocument);
-    // Do something with the updated document
   } else {
     console.log('No document found with the specified ID.');
   }
@@ -40,14 +35,14 @@ exports.post_create_comment = [
 
 exports.comment_delete = asyncHandler(async (req, res, next) => {
     const [comment] = await Promise.all([
-    Comment.findById(req.params.id).exec(),
+    Comment.findById(req.params.commentid).exec(),
   ]);
 
   if (comment === null) {
     res.json("This comment does not exist");
   }
 
-    await Comment.findByIdAndDelete(req.params.id);
+    await Comment.findByIdAndDelete(req.params.commentid);
     res.json("Comment deleted :)");
 })
 
