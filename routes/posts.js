@@ -27,6 +27,4 @@ router.post('/:postid/comment/create', passport.authenticate('jwt', {session: fa
 
 router.post("/:postid/comments/delete/:commentid", passport.authenticate('jwt', {session: false}), isUserComment, comment_controller.comment_delete);
 
-// Admins / the user who posted the comment should be able to delete comments
-
 module.exports = router;

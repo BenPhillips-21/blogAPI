@@ -17,7 +17,7 @@ exports.index = asyncHandler(async (req, res, next) => {
 
 exports.post_detail = asyncHandler(async (req, res, next) => {
   const [post] = await Promise.all([
-    Post.findById(req.params.id).populate("user").populate("comments").exec(),
+    Post.findById(req.params.id).populate("user").populate({path: 'comments', populate: {path: 'user'}}).exec(), 
   ]);
 
   if (post === null) {
@@ -45,11 +45,11 @@ exports.post_create_post = [
   },
 
   asyncHandler(async (req, res, next) => {
-
+    let date = Date.now()
     const post = new Post({
-      user: req.body.user,  
+      user: req.user._id,  
       title: req.body.title,
-      date_published: req.body.date_published,
+      date_published: date,
       content: req.body.content,
       comments: req.body.comments,
     });

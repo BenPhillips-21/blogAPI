@@ -19,7 +19,7 @@ exports.post_create_comment = [
 
     Post.findByIdAndUpdate(
     req.params.postid,
-    { $push: { comments: comment } }, // Use $push to add newValue to the array
+    { $push: { comments: comment } }, 
     { new: true }
   )
   .then(updatedDocument => {
@@ -45,8 +45,3 @@ exports.comment_delete = asyncHandler(async (req, res, next) => {
     await Comment.findByIdAndDelete(req.params.commentid);
     res.json("Comment deleted :)");
 })
-
-    // const updateOperation = {
-    // $pull: { comments: req.params.id }
-    // };
-    // await Post.findOneAndUpdate({ _id: req.params.id }, updateOperation, { new: true })
