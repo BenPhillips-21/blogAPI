@@ -3,6 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const compression = require("compression");
+const helmet = require("helmet");
 
 /**
  * -------------- GENERAL SETUP ----------------
@@ -19,6 +21,24 @@ mongoose.connect(mongoDb, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Create the Express application
 var app = express();
+
+app.use(compression());
+
+app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+      },
+    }),
+  );
+
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 30,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
 
 // Configures the database and opens a global connection that can be used in any module with `mongoose.connection`
 // require('./config/database');
