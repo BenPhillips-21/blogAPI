@@ -6,8 +6,6 @@ const { isAdmin, isUserComment } = require('../middleware/authMiddleware');
 const post_controller = require("../controllers/postController")
 const comment_controller = require("../controllers/commentController")
 
-// Add 'passport.authenticate('jwt', {session: false})' to middleware to protect the route
-
 // GET request for ALL posts
 router.get('/', post_controller.index)
 
@@ -23,8 +21,13 @@ router.post("/delete/:id", passport.authenticate('jwt', {session: false}), isAdm
  // POST request to update post.
 router.post("/update/:id", passport.authenticate('jwt', {session: false}), isAdmin, post_controller.post_update_post);
 
+// POST request to create comment
 router.post('/:postid/comment/create', passport.authenticate('jwt', {session: false}), comment_controller.post_create_comment)
 
+// POST request to delete a comment
 router.post("/:postid/comments/delete/:commentid", passport.authenticate('jwt', {session: false}), isUserComment, comment_controller.comment_delete);
+
+// GET request to add like to comment
+router.get("/:postid/comments/like/:commentid", passport.authenticate('jwt', {session: false}), comment_controller.like_comment)
 
 module.exports = router;

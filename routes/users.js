@@ -16,7 +16,6 @@ router.get('/detail', passport.authenticate('jwt', {session: false}), isAdmin, (
 });
 
 router.post('/login', function(req, res, next){
-    
     User.findOne({ username: req.body.username })
         .then((user) => {
             if (!user) {
