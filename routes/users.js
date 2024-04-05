@@ -6,11 +6,6 @@ const utils = require('../lib/utils');
 
 const { isAdmin } = require('../middleware/authMiddleware');
 
-// TODO
-router.get('/protected', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    res.status(200).json({ success: true, message: 'you are authorized'})
-});
-
 router.get('/detail', passport.authenticate('jwt', {session: false}), isAdmin, (req, res, next) => {
     res.json(true)
 });

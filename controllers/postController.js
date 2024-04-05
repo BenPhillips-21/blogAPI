@@ -1,8 +1,4 @@
 const Post = require("../models/posts");
-const Comment = require ("../models/comments");
-const User = require("../models/user");
-
-const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 exports.index = asyncHandler(async (req, res, next) => {
@@ -32,11 +28,8 @@ exports.post_detail = asyncHandler(async (req, res, next) => {
 exports.post_create_post = [
   (req, res, next) => {
     if (req.body.comments === undefined) {
-        console.log(req.body)
         next()
     } else { 
-      console.log(req.body)  
-      console.log(req.body.comments)
       req.body.comments =
       typeof req.body.comments === "undefined" ? [] : [req.body.comments];
       console.log(req.body.comments)

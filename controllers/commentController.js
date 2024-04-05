@@ -1,8 +1,6 @@
 const Comment = require ("../models/comments");
 const Post = require ("../models/posts");
-const User = require("../models/user");
 
-const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 exports.post_create_comment = [
