@@ -34,14 +34,13 @@ exports.post_create_comment = [
 ];
 
 exports.comment_delete = asyncHandler(async (req, res, next) => {
-    const [comment] = await Promise.all([
-    Comment.findById(req.params.commentid).exec(),
-  ]);
+  const comment = await Comment.findById(req.params.commentid).exec();
 
   if (comment === null) {
     res.json("This comment does not exist");
+    return; 
   }
 
-    await Comment.findByIdAndDelete(req.params.commentid);
-    res.json("Comment deleted :)");
-})
+  await Comment.findByIdAndDelete(req.params.commentid);
+  res.json("Comment deleted :)");
+});

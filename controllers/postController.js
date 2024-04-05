@@ -7,7 +7,7 @@ const asyncHandler = require("express-async-handler");
 
 exports.index = asyncHandler(async (req, res, next) => {
     const allPosts = await Post.find({}, "title date_published content comments user")
-    .sort({ title: 1 })
+    .sort({ date_published: -1 })
     .populate("user")
     .populate("comments")
     .exec();
