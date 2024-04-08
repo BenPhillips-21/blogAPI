@@ -55,7 +55,8 @@ GET /posts
 
 Returns:
 - An array of JSON objects with all blog posts and their information.
-  ```{
+  ```
+  {
     "posts": [], 
   }
   ```
