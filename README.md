@@ -57,7 +57,8 @@ Returns:
 - An array of JSON objects with all blog posts and their information.
   ```{
     "posts": [], 
-  }```
+  }
+  ```
 
 #### Post Detail
 
@@ -98,7 +99,8 @@ Returns:
     "date_published": "2024-04-05T04:02:57.237Z",
     "content": "Christopher Columbus's voyage to the Americas in 1492 marks a pivotal moment in history, often celebrated as the \"discovery\" of the New World. Sponsored by the Spanish monarchs Ferdinand and Isabella, Columbus set sail from Spain in search of a westward route to Asia, but instead stumbled upon the Caribbean islands. His encounter with the Americas initiated a transformative era of exploration, colonization, and cultural exchange between the Old World and the New. While Columbus's voyage is celebrated for its navigational prowess and the opening of transatlantic trade routes, it also ushered in centuries of colonization, exploitation, and devastation for indigenous peoples. The legacy of Columbus's discovery is complex, sparking debate and reflection on the impact of European expansionism and the enduring consequences for the peoples and cultures of the Americas.",
     "__v": 0
-}```
+}
+```
 
 
 Developed by **Benjamin Phillips**
