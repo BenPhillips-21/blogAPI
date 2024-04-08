@@ -22,7 +22,7 @@ This repository comprises the API/backend of the 'On Exploration' Blog project. 
  
 3. JWT Issuance for Login: Upon login, the auth server issues a JWT to be handled by the frontend. These tokens are signed with a RSA private key, to be verified later on with a RSA public key. These tokens are used by the auth middleware to handle requests in the API's protected routes.
 
-4.Integration with the Frontend: The backend seamlessly integrates with the frontend, facilitating real-time data synchronization, instant updates, and efficient communication between the client and server. This integration ensures a smooth user experience and enables dynamic content delivery.
+4. Integration with the Frontend: The backend seamlessly integrates with the frontend, facilitating real-time data synchronization, instant updates, and efficient communication between the client and server. This integration ensures a smooth user experience and enables dynamic content delivery.
 
 ## Documentation
 
